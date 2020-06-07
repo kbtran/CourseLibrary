@@ -4,3 +4,5 @@
 
 /CourseLibrary/.vs/CourseLibrary/v16
 /CourseLibrary/CourseLibrary.API/obj
+/CourseLibrary/CourseLibrary.API/bin/Debug/netcoreapp3.1/runtimes
+/CourseLibrary/CourseLibrary.API/bin/Debug/netcoreapp3.1

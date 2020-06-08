@@ -11,20 +11,35 @@ namespace CourseLibrary.API.Controllers
     // or [Route("api/controller")]
     public class AuthorsController : ControllerBase
     {
-        private readonly ICourseLibraryRepository _courseLibrayRepository;
+        private readonly ICourseLibraryRepository _courseLibraryRepository;
         
-        public AuthorsController(ICourseLibraryRepository courseLibrayRepository)
+        public AuthorsController(ICourseLibraryRepository courseLibraryRepository)
         {
-            _courseLibrayRepository = courseLibrayRepository ??
-                throw new ArgumentNullException(nameof(courseLibrayRepository));
+            _courseLibraryRepository = courseLibraryRepository ??
+                throw new ArgumentNullException(nameof(courseLibraryRepository));
         }
 
         [HttpGet()]
         public IActionResult GetAuthors()
         {
-            var authorsFromRepo = _courseLibrayRepository.GetAuthors();
+            var authorsFromRepo = _courseLibraryRepository.GetAuthors();
 
-            return new JsonResult(authorsFromRepo);
+            //return new JsonResult(authorsFromRepo);
+            return Ok(authorsFromRepo);
+        }
+
+
+        [HttpGet("{authorId}")]
+        public IActionResult GetAuthor(Guid authorId)
+        {
+            var authorFromRepo = _courseLibraryRepository.GetAuthor(authorId);
+
+            if (authorFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(authorFromRepo);
         }
     }
 }

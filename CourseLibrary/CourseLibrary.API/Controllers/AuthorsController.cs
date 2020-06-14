@@ -27,30 +27,37 @@ namespace CourseLibrary.API.Controllers
                 throw new ArgumentNullException(nameof(mapper));
         }
 
+        //[HttpGet()]
+        //[HttpHead]
+        //public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
+        //{
+        //    //var authors = new List<AuthorDto>();
+
+        //    //foreach(var author in authorsFromRepo)
+        //    //{
+        //    //    authors.Add(new AuthorDto()
+        //    //    {
+        //    //        Id = author.Id,
+        //    //        Name = $"{author.FirstName}  {author.LastName}",
+        //    //        MainCategory = author.MainCategory,
+        //    //        Age = author.DateOfBirth.GetCurrentAge()
+        //    //    });
+        //    //}
+
+        //    //return new JsonResult(authorsFromRepo);
+        //    //return Ok(authors);
+
+        //    var authorsFromRepo = _courseLibraryRepository.GetAuthors();
+        //    return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
+        //}
+
         [HttpGet()]
-        [HttpHead]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(
+           [FromQuery] string mainCategory)
         {
-            var authorsFromRepo = _courseLibraryRepository.GetAuthors();
-            //var authors = new List<AuthorDto>();
-
-            //foreach(var author in authorsFromRepo)
-            //{
-            //    authors.Add(new AuthorDto()
-            //    {
-            //        Id = author.Id,
-            //        Name = $"{author.FirstName}  {author.LastName}",
-            //        MainCategory = author.MainCategory,
-            //        Age = author.DateOfBirth.GetCurrentAge()
-            //    });
-            //}
-
-            //return new JsonResult(authorsFromRepo);
-            //return Ok(authors);
-
+            var authorsFromRepo = _courseLibraryRepository.GetAuthors(mainCategory);
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo));
         }
-
 
         [HttpGet("{authorId}")]
         public IActionResult GetAuthor(Guid authorId)

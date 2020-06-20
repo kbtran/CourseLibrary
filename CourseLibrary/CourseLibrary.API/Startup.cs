@@ -30,8 +30,12 @@ namespace CourseLibrary.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // Register HttpCacheHeader
-            services.AddHttpCacheHeaders();
+            // Register HttpCacheHeaders
+            services.AddHttpCacheHeaders((expirationModelOptions) =>
+            {
+                expirationModelOptions.MaxAge = 60;
+                expirationModelOptions.CacheLocation = Marvin.Cache.Headers.CacheLocation.Private;
+            });
 
             // Register response cahing
             services.AddResponseCaching();

@@ -29,6 +29,9 @@ namespace CourseLibrary.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Register response cahing
+            services.AddResponseCaching();
+
             // By default ==> setupAction.ReturnHttpNotAcceptable = false;
             // Json is also the default
             services.AddControllers(setupAction =>
@@ -86,7 +89,7 @@ namespace CourseLibrary.API
                   };
               });
 
-            // register supported Media Type
+            // Register supported Media Type
             services.Configure<MvcOptions>(config =>
             {
                 var newtonsoftJsonOutputFormatter = config.OutputFormatters
@@ -98,10 +101,10 @@ namespace CourseLibrary.API
                 }
             });
 
-            // register PropertyMappingService
+            // Register PropertyMappingService
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
 
-            // register PropertyCheckerService
+            // Register PropertyCheckerService
             services.AddTransient<IPropertyCheckerService, PropertyCheckerService>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -134,6 +137,8 @@ namespace CourseLibrary.API
                 });
 
             }
+
+            app.UseResponseCaching();
 
             app.UseHttpsRedirection();
 
